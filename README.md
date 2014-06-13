@@ -10,8 +10,9 @@ This approach allows me to create files quickly when deploying other projects. I
 Example
 ----------------
     $funky = new Funky('myFunction');
-    $funky->comments()
+    $funky->hasComments()
         ->isStatic()
+        ->param('Models\Model $m')
         ->isProtected()
         ->line('$ret = \'hello world\'')
         ->returns('$ret')
@@ -21,9 +22,11 @@ Example
     /**
      * Description for myFunction
      *
+     * @param Models\Model $m
+     *
      * @return
      */
-    protected static function myFunction()
+    protected static function myFunction(Models\Model $m)
     {
         $ret = 'hello world';
         return $ret;
