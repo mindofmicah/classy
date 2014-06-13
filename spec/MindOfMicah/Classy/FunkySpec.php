@@ -122,6 +122,16 @@ public function name()
 CODE;
         $this->isChainable()->returns('$a')->render()->shouldEqual($expected);
     }
+
+    public function it_should_display_parameters_in_the_declaration()
+    {
+        $expected = <<<CODE
+public function name(\$a, \$b)
+{
+}
+CODE;
+        $this->param('$a')->param('$b')->render()->shouldEqual($expected);;
+    }
 }
 
 

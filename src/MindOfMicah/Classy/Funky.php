@@ -9,6 +9,7 @@ class Funky
     protected $access_level = 'public';
     protected $is_chainable = false;
     protected $return_statement;
+    protected $params = array();
     protected $name;
 
     public function __construct($name)
@@ -29,10 +30,11 @@ class Funky
     private function formatMethodSignature()
     {
         return sprintf(
-            '%s %sfunction %s()',
+            '%s %sfunction %s(%s)',
             $this->access_level,
             $this->is_static ? 'static ' : '',
-            $this->name
+            $this->name,
+            implode(', ', $this->params)
         );
     }
 
@@ -124,6 +126,12 @@ class Funky
     public function isChainable()
     {
         $this->is_chainable = true;
+        return $this;
+    }
+
+    public function param($new_param)
+    {
+        $this->params[] = $new_param;
         return $this;
     }
 }
