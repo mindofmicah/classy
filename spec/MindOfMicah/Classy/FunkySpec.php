@@ -132,6 +132,16 @@ public function name(\$a, \$b)
 CODE;
         $this->param('$a')->param('$b')->render()->shouldEqual($expected);;
     }
+
+    public function it_should_replace_existing_params_with_params_method()
+    {
+        $expected = <<<CODE
+public function name(\$b, \$s)
+{
+}
+CODE;
+        $this->param('$a')->params('$b', '$s')->render()->shouldEqual($expected);
+    }
 }
 
 

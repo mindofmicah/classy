@@ -134,4 +134,10 @@ class Funky
         $this->params[] = $new_param;
         return $this;
     }
+
+    public function params($new_param)
+    {
+        $this->params = func_get_args();
+        return $this;
+    }
 }
