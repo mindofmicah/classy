@@ -142,6 +142,24 @@ public function name(\$b, \$s)
 CODE;
         $this->param('$a')->params('$b', '$s')->render()->shouldEqual($expected);
     }
+
+    public function it_should_include_comments_for_parameters()
+    {
+        $expected = <<<CODE
+/**
+ * Description for name
+ *
+ * @param \Models\Model \$a
+ * @param string \$b
+ *
+ * @return
+ */
+public function name(\Models\Model \$a, \$b)
+{
+}
+CODE;
+        $this->params('\Models\Model $a', '$b')->comments()->render()->shouldEqual($expected);
+    }
 }
 
 

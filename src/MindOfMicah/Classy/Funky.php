@@ -46,13 +46,32 @@ class Funky
 
     private function formatComments()
     {
+        $spacer = ' *';
         $ret = array();
         $ret[] = '/**';
         $ret[] = ' * Description for ' . $this->name;
-        $ret[] = ' *';
+        $ret[] = $spacer;
+        if (count($this->params)) {
+            foreach($this->params as $param) {
+                $ret[] = $spacer . ' ' . $this->formatParamAsComment($param);
+            }
+            $ret[] = $spacer;
+        }
         $ret[] = ' * @return';
         $ret[] = ' */';
         return implode("\n", $ret) . "\n";
+    }
+
+    private function formatParamAsComment($param)
+    {
+        $chunks = explode(' ', $param);
+        if (count($chunks) == 1) {
+            $type = 'string';
+        } else {
+            $type = $chunks[0];
+        }
+        
+        return '@param ' . $type . ' ' . end($chunks);
     }
 
     public function line($line)
