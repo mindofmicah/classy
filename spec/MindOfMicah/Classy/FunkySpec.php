@@ -2,13 +2,13 @@
 
 namespace spec\MindOfMicah\Classy;
 
-use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
 class FunkySpec extends ObjectBehavior
 {
     public function let()
     {
+        $this->loadExpections('expectations/funky.php');
         $this->beConstructedWith('name');
     }
     function it_is_initializable()
@@ -18,148 +18,62 @@ class FunkySpec extends ObjectBehavior
 
     public function it_should_render_an_empty_function_with_comments()
     {
-        $expected = <<<CODE
-/**
- * Description for name
- *
- * @return
- */
-public function name()
-{
-}
-CODE;
-        $this->hasComments()->render()->shouldEqual($expected);
+        $this->hasComments()->render()->shouldEqual($this->expect('empty_with_comments'));
     }
+
     public function it_should_render_an_empty_function()
     {
-        $expected = <<<CODE
-public function name()
-{
-}
-CODE;
-        #$this->render()->shouldEqual("public function name()\n{\n}");
-        $this->render()->shouldEqual($expected);
+        $this->render()->shouldEqual($this->expect('default'));
     }
 
     public function it_should_render_out_each_line_of_the_function()
     {
-        $expected = <<<CODE
-public function name()
-{
-    \$a = "apples";
-    \$a.= " and nanners";
-}
-CODE;
-        $this->line('$a = "apples"')->line('$a.= " and nanners"')->render()->shouldBe($expected);
+        $this->line('$a = "apples"')->line('$a.= " and nanners"')->render()->shouldBe($this->expect('has_lines'));
     }
 
     public function it_should_allow_static_methods()
     {
-        $expected = <<<CODE
-public static function name()
-{
-}
-CODE;
-        $this->isStatic()->render()->shouldEqual($expected);
+        $this->isStatic()->render()->shouldEqual($this->expect('static'));
     }
     public function it_should_allow_private_methods()
     {
-        $expected = <<<CODE
-private function name()
-{
-}
-CODE;
-        $this->isPrivate()->render()->shouldEqual($expected);
+        $this->isPrivate()->render()->shouldEqual($this->expect('private'));
     }
     public function it_should_allow_protected_methods()
     {
-        $expected = <<<CODE
-protected function name()
-{
-}
-CODE;
-        $this->isProtected()->render()->shouldEqual($expected);
+        $this->isProtected()->render()->shouldEqual($this->expect('protected'));
     }
 
     public function it_should_be_able_to_go_back_to_being_public()
     {
-        $expected = <<<CODE
-public function name()
-{
-}
-CODE;
-        $this->isPrivate()->isPublic()->render()->shouldEqual($expected);
+        $this->isPrivate()->isPublic()->render()->shouldEqual($this->expect('default'));
     }
     public function it_should_allow_a_syntax_sugar_for_return_statements()
     {
-        $expected = <<<CODE
-public function name()
-{
-    \$a = 'apples';
-    return \$a;
-}
-CODE;
-        $this->line("\$a = 'apples'")->returns('$a')->render()->shouldEqual($expected);
+        $this->line("\$a = 'apples'")->returns('$a')->render()->shouldEqual($this->expect('return_statement'));
     }
     public function it_should_be_chainable()
     {
-        $expected = <<<CODE
-public function name()
-{
-    return \$this;
-}
-CODE;
-        $this->isChainable()->render()->shouldEqual($expected);
+        $this->isChainable()->render()->shouldEqual($this->expect('chainable'));
     }
 
     public function it_should_give_authority_to_chainable_if_it_is_used_with_returns()
     {
-        $expected = <<<CODE
-public function name()
-{
-    return \$this;
-}
-CODE;
-        $this->isChainable()->returns('$a')->render()->shouldEqual($expected);
+        $this->isChainable()->returns('$a')->render()->shouldEqual($this->expect('chainable'));
     }
 
     public function it_should_display_parameters_in_the_declaration()
     {
-        $expected = <<<CODE
-public function name(\$a, \$b)
-{
-}
-CODE;
-        $this->param('$a')->param('$b')->render()->shouldEqual($expected);;
+        $this->param('$a')->param('$b')->render()->shouldEqual($this->expect('params.basic'));
     }
 
     public function it_should_replace_existing_params_with_params_method()
     {
-        $expected = <<<CODE
-public function name(\$b, \$s)
-{
-}
-CODE;
-        $this->param('$a')->params('$b', '$s')->render()->shouldEqual($expected);
+        $this->param('$c')->params('$a', '$b')->render()->shouldEqual($this->expect('params.basic'));
     }
 
     public function it_should_include_comments_for_parameters()
     {
-        $expected = <<<CODE
-/**
- * Description for name
- *
- * @param \Models\Model \$a
- * @param string \$b
- *
- * @return
- */
-public function name(\Models\Model \$a, \$b)
-{
-}
-CODE;
-        $this->params('\Models\Model $a', '$b')->hasComments()->render()->shouldEqual($expected);
+        $this->params('\Models\Model $a', '$b')->hasComments()->render()->shouldEqual($this->expect('params.commented'));
     }
 }
-
-

@@ -17,7 +17,8 @@
     "autoload" : {
         "psr-4" : {
             "" : "src",
-            "MindOfMicah\\Classy\\" : "src/"
+            "MindOfMicah\\Classy\\" : "src/",
+            "spec\\" : "spec"
         }
     }
 }
