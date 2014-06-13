@@ -1,0 +1,23 @@
+{
+    "name": "mindofmicah/classy",
+    "require-dev": {
+        "phpspec/phpspec": "2.*",
+        "phpspec/nyan-formatters": "1.*"
+    },
+    "authors": [
+        {
+            "name": "micah eschbacher",
+            "email": "micah@whamdonk.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+
+    },
+    "autoload" : {
+        "psr-4" : {
+            "" : "src",
+            "MindOfMicah\\Classy\\" : "src/"
+        }
+    }
+}

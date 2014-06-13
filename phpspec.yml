@@ -1,0 +1,8 @@
+extensions:
+    - PhpSpec\NyanFormattersExtension\Extension
+
+formatter.name: nyan.dino
+suites:
+    suite:
+        src_path: src
+        namespace: MindOfMicah\Classy
