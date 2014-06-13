@@ -101,6 +101,27 @@ public function name()
 CODE;
         $this->line("\$a = 'apples'")->returns('$a')->render()->shouldEqual($expected);
     }
+    public function it_should_be_chainable()
+    {
+        $expected = <<<CODE
+public function name()
+{
+    return \$this;
+}
+CODE;
+        $this->isChainable()->render()->shouldEqual($expected);
+    }
+
+    public function it_should_give_authority_to_chainable_if_it_is_used_with_returns()
+    {
+        $expected = <<<CODE
+public function name()
+{
+    return \$this;
+}
+CODE;
+        $this->isChainable()->returns('$a')->render()->shouldEqual($expected);
+    }
 }
 
 

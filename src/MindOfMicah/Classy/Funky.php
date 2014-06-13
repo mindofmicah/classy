@@ -7,6 +7,8 @@ class Funky
     protected $lines = array();
     protected $is_static = false;
     protected $access_level = 'public';
+    protected $is_chainable = false;
+    protected $return_statement;
     protected $name;
 
     public function __construct($name)
@@ -53,18 +55,31 @@ class Funky
 
     public function line($line)
     {
-        if (substr($line, 0, -1) !== ';') {
-            $line.=';';
-        }
-        $this->lines[] = $line;
+        $this->lines[] = $this->forceSemiColon($line);
         return $this;
     }
+
     private function formatLines()
     {
+        $last_line = $this->getLastLine();
+        if (($last_line)) {
+            $this->lines[] = $last_line;
+        }
         if (count($this->lines) == 0) {
             return '';
         }
+
         return "    " . implode("\n    ", $this->lines) . "\n";
+    }
+
+    private function getlastLine()
+    {
+        if ($this->is_chainable) {
+            return 'return $this;';
+        }
+        if ($this->return_statement) {
+            return 'return ' . $this->return_statement;
+        }
     }
 
     public function isStatic()
@@ -93,6 +108,22 @@ class Funky
 
     public function returns($return_statement)
     {
-        return $this->line('return ' . $return_statement);
+        $this->return_statement = $this->forceSemiColon($return_statement);
+        return $this;
+    }
+
+    private function forceSemiColon($line)
+    {
+        if (substr($line, 0, -1) !== ';') {
+            $line.=';';
+        }
+        return $line;
+
+    }
+
+    public function isChainable()
+    {
+        $this->is_chainable = true;
+        return $this;
     }
 }
