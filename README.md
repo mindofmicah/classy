@@ -9,17 +9,22 @@ This approach allows me to create files quickly when deploying other projects. I
 
 Example
 ----------------
-$funky = new Funky('myFunction');
-$funky->comments()->isStatic()->isProtected()->line('$ret = \'hello world\'')->returns('$ret')->render();
+    $funky = new Funky('myFunction');
+    $funky->comments()
+        ->isStatic()
+        ->isProtected()
+        ->line('$ret = \'hello world\'')
+        ->returns('$ret')
+        ->render();
 
-Yields:
-/**
- * Description for myFunction
- *
- * @return
- */
-protected static function myFunction()
-{
-  $ret = 'hello world';
-  return $ret;
-}
+
+    /**
+     * Description for myFunction
+     *
+     * @return
+     */
+    protected static function myFunction()
+    {
+        $ret = 'hello world';
+        return $ret;
+    }
