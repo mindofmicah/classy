@@ -38,7 +38,7 @@ class Funky
         );
     }
 
-    public function comments($include_comments = true)
+    public function hasComments($include_comments = true)
     {
         $this->include_comments = !!$include_comments;
         return $this;
@@ -139,7 +139,6 @@ class Funky
             $line.=';';
         }
         return $line;
-
     }
 
     public function isChainable()

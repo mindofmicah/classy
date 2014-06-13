@@ -28,7 +28,7 @@ public function name()
 {
 }
 CODE;
-        $this->comments(true)->render()->shouldEqual($expected);
+        $this->hasComments()->render()->shouldEqual($expected);
     }
     public function it_should_render_an_empty_function()
     {
@@ -158,7 +158,7 @@ public function name(\Models\Model \$a, \$b)
 {
 }
 CODE;
-        $this->params('\Models\Model $a', '$b')->comments()->render()->shouldEqual($expected);
+        $this->params('\Models\Model $a', '$b')->hasComments()->render()->shouldEqual($expected);
     }
 }
 
