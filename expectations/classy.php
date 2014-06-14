@@ -19,4 +19,11 @@ class Name implements Interface1, Interface2, Interface3
 }
 CODE;
 
+$expected['class.methods'] = <<<CODE
+class Name
+{
+    function output
+}
+CODE;
+
 return $expected;
