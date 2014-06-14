@@ -18,3 +18,5 @@ class Name implements Interface1, Interface2, Interface3
 {
 }
 CODE;
+
+return $expected;
