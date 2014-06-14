@@ -4,7 +4,7 @@ namespace spec\MindOfMicah\Classy;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-
+use MindOfMicah\Classy\Funky;
 class ClassySpec extends ObjectBehavior
 {
     public function let()
@@ -36,6 +36,15 @@ class ClassySpec extends ObjectBehavior
             ->render()
             ->shouldRender('class.interfaces');
     }
+
+    public function it_should_format_functions_within_a_class(Funky $funky)
+    {
+        $funky->indent(1)->willReturn($funky)->shouldBeCalled();
+        $funky->render()->willReturn('function output')->shouldBeCalled();
+
+        $this->addFunction($funky)->render()->shouldRender('class.methods');
+    }
+
 
     public function getMatchers()
     {
