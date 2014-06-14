@@ -78,6 +78,16 @@ public function name(\Models\Model \$a, \$b)
 }
 CODE;
 
-// Do Not Remove
+$expected['indented'] = <<<CODE
+    /**
+     * Description for name
+     *
+     * @return
+     */
+    public function name()
+    {
+    }
+CODE;
+
 return $expected;
 
