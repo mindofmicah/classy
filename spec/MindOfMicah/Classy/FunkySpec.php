@@ -109,12 +109,20 @@ class FunkySpec extends ObjectBehavior
             ->shouldRender('params.commented');
     }
 
+    public function it_should_be_able_to_be_indented()
+    {
+        $this->indent(1)
+            ->hasComments()
+            ->render()
+            ->shouldRender('indented');
+    }
+
     public function getMatchers()
     {
         $expects = require 'expectations/funky.php';
         return [
             'render' => function ($subject, $key) use ($expects) {
-                return array_key_exists($key, $expects) && $expects[$key] == $subject;
+                return (array_key_exists($key, $expects) && $expects[$key] == $subject);
             }
         ];
     }

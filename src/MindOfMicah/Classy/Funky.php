@@ -9,6 +9,7 @@ class Funky
     protected $access_level = 'public';
     protected $is_chainable = false;
     protected $return_statement;
+    protected $indent_level = 0;
     protected $params = array();
     protected $name;
 
@@ -19,12 +20,12 @@ class Funky
 
     public function render()
     {
-        return sprintf(
+        return str_repeat(' ', 4*$this->indent_level) . str_replace(["\n"],["\n" . str_repeat(" ", 4* $this->indent_level)], sprintf(
             "%s%s\n{\n%s}",
             $this->include_comments ? $this->formatComments() : '',
             $this->formatMethodSignature(),
             $this->formatLines()
-        );
+        ));
     }
 
     private function formatMethodSignature()
@@ -156,6 +157,12 @@ class Funky
     public function params($new_param)
     {
         $this->params = func_get_args();
+        return $this;
+    }
+
+    public function indent($indent = 1)
+    {
+        $this->indent_level+= $indent;
         return $this;
     }
 }
