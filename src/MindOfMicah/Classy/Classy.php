@@ -56,4 +56,9 @@ class Classy
         $this->functions[] = $function;
         return $this;
     }
+
+    public function make($class_name)
+    {
+        return new static($class_name);
+    }
 }

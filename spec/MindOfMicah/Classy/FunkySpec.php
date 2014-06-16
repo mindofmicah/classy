@@ -29,6 +29,13 @@ class FunkySpec extends ObjectBehavior
             ->shouldRender('default');
     }
 
+    public function it_should_have_a_factory_method()
+    {
+        $funky = $this::make('name');
+        $funky->shouldBeAnInstanceOf('MindOfMicah\Classy\Funky');
+        $funky->render()->shouldRender('default');
+    }
+
     public function it_should_render_out_each_line_of_the_function()
     {
         $this->line('$a = "apples"')

@@ -165,4 +165,9 @@ class Funky
         $this->indent_level+= $indent;
         return $this;
     }
+
+    public function make($function_name)
+    {
+        return new self($function_name);
+    }
 }

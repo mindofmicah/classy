@@ -16,6 +16,13 @@ class ClassySpec extends ObjectBehavior
         $this->shouldHaveType('MindOfMicah\Classy\Classy');
     }
 
+    public function it_should_have_a_factory_method()
+    {
+        $classy = $this::make('name');
+        $classy->shouldBeAnInstanceOf('MindOfMicah\Classy\Classy');
+        $classy->render()->shouldRender('class.basic');
+    }
+
     public function it_should_render_a_basic_class()
     {
         $this->render()
