@@ -14,6 +14,8 @@ class FunkySpec extends ObjectBehavior
     function it_is_initializable()
     {
         $this->shouldHaveType('MindOfMicah\Classy\Funky');
+        $this->shouldImplement('MindOfMicah\Classy\Contracts\Usable');
+        $this->shouldImplement('MindOfMicah\Classy\Contracts\Renderable');
     }
 
     public function it_should_render_an_empty_function_with_comments()
@@ -123,6 +125,20 @@ class FunkySpec extends ObjectBehavior
             ->render()
             ->shouldRender('indented');
     }
+
+    public function it_can_return_all_types_for_a_function()
+    {
+        $this->getUseStatements()->shouldHaveCount(0);
+        $this->param('\MindOfMicah\Apples $apple1');
+        $this->param('$other_param');
+        $this->param('\MindOfMicah\Apples $apple2');
+        $this->param('\MindOfMicah\Tacos $taco');
+        $this->getUseStatements()->shouldBe([
+            '\MindOfMicah\Apples',
+            '\MindOfMicah\Tacos'
+        ]);
+    }
+
 
     public function getMatchers()
     {

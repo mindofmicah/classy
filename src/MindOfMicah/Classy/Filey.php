@@ -2,7 +2,7 @@
 
 namespace MindOfMicah\Classy;
 
-class Filey
+class Filey implements Contracts\Renderable
 {
     protected $namespace;
     protected $contents = '';
@@ -32,7 +32,15 @@ class Filey
 
     public function append($new_content)
     {
-        $this->contents.= $new_content;
+        if ($new_content instanceof \MindOfMicah\Classy\Contracts\Renderable) {
+            $this->contents.= $new_content->render();
+        } else {
+            $this->contents.= (string)$new_content;
+        }
+
+        if ($new_content instanceof \MindOfMicah\Classy\Contracts\Usable) {
+            $this->uses+= $new_content->getUseStatements();
+        }
         return $this;
     }
 

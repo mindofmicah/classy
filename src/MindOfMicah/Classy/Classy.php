@@ -1,7 +1,7 @@
 <?php
 namespace MindOfMicah\Classy;
 
-class Classy
+class Classy implements Contracts\Usable, Contracts\Renderable
 {
     protected $name;
     protected $parent_class;
@@ -60,5 +60,14 @@ class Classy
     public function make($class_name)
     {
         return new static($class_name);
+    }
+
+    public function getUseStatements()
+    {
+        $ret = [];
+        foreach ($this->functions as $func) {
+            $ret = array_merge($ret,  $func->getUseStatements());
+        }
+        return array_values(array_unique($ret));
     }
 }

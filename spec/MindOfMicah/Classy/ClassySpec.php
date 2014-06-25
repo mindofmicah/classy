@@ -14,6 +14,8 @@ class ClassySpec extends ObjectBehavior
     public function it_is_initializable()
     {
         $this->shouldHaveType('MindOfMicah\Classy\Classy');
+        $this->shouldImplement('MindOfMicah\Classy\Contracts\Usable');
+        $this->shouldImplement('MindOfMicah\Classy\Contracts\Renderable');
     }
 
     public function it_should_have_a_factory_method()
@@ -52,6 +54,17 @@ class ClassySpec extends ObjectBehavior
         $this->addFunction($funky)->render()->shouldRender('class.methods');
     }
 
+    public function it_should_gather_use_statements_from_its_methods(Funky $funky, Funky $f2)
+    {
+        $funky->getUseStatements()->willReturn(['FirstClass', 'SecondClass'])->shouldBeCalledTimes(1);
+        $f2->getUseStatements()->willReturn(['FirstClass'])->shouldBeCalledTimes(1);
+        $this->getUseStatements()->shouldHaveCount(0);
+        $this->addFunction($funky);
+        $this->addFunction($f2);
+        $this->getUseStatements()->shouldBe([
+            'FirstClass','SecondClass'
+        ]);
+    }
 
     public function getMatchers()
     {

@@ -1,7 +1,7 @@
 <?php
 namespace MindOfMicah\Classy;
 
-class Funky
+class Funky implements Contracts\Usable, Contracts\Renderable
 {
     protected $include_comments = false;
     protected $lines = array();
@@ -150,13 +150,14 @@ class Funky
 
     public function param($new_param)
     {
-        $this->params[] = $new_param;
+        $this->params[] = Parameter::fromDefinition($new_param);
         return $this;
     }
 
     public function params($new_param)
     {
-        $this->params = func_get_args();
+        $this->params = [];
+        array_walk(func_get_args(), [$this, 'param']);
         return $this;
     }
 
@@ -169,5 +170,16 @@ class Funky
     public function make($function_name)
     {
         return new self($function_name);
+    }
+
+    public function getUseStatements()
+    {
+        $ret = [];
+        foreach ($this->params as $param) {
+            if ($temp = $param->getType()) {
+                $ret[$temp] = null;
+            }
+        }
+        return array_keys($ret);
     }
 }
