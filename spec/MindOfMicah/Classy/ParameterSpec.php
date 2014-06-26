@@ -77,4 +77,10 @@ class ParameterSpec extends ObjectBehavior
         $example =  new \MindOfMicah\Classy\Parameter('$t');
         $this->render()->shouldBe((string)$example);
     }
+
+    public function it_should_format_as_documentation()
+    {
+        $this->asDocumentation()->shouldBe('@param string $t');
+        $this->setType('Apples')->asDocumentation()->shouldBe('@param Apples $t');
+    }
 }

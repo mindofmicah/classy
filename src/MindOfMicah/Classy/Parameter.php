@@ -91,4 +91,9 @@ return;
     {
         return $this->render();
     }
+
+    public function asDocumentation()
+    {
+        return '@param ' . ($this->type?:'string') . ' '. $this->name;
+    }
 }
