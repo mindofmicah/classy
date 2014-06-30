@@ -26,4 +26,10 @@ class Name
 }
 CODE;
 
+$expected['class.namespaced.headers'] = <<<CODE
+class Name extends BaseClass implements Interface1
+{
+}
+CODE;
+
 return $expected;
