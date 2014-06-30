@@ -7,6 +7,8 @@ class Classy implements Contracts\Usable, Contracts\Renderable
     protected $parent_class;
     protected $interfaces = [];
     protected $functions = [];
+    protected $use_statements = [];
+
     public function __construct($name)
     {
         $this->name = ucfirst($name);
@@ -32,13 +34,32 @@ class Classy implements Contracts\Usable, Contracts\Renderable
 
     public function willExtend($parent_class)
     {
+        $true_class = $this->grabTrueClassName($parent_class);
+        if ($true_class != $parent_class) {
+            $this->use_statements[] = $parent_class;
+            $parent_class = $true_class;
+        }
+
         $this->parent_class = $parent_class;
         return $this;
     }
 
+    private function grabTrueClassName($class)
+    {
+        $chunks = explode('\\', $class);
+        return end($chunks);
+    }
+
     public function willImplement($interface)
     {
-        $this->interfaces = array_merge($this->interfaces, func_get_args());
+        foreach (func_get_args() as $interface) {
+            $true_class = $this->grabTrueClassName($interface);
+            if ($true_class != $interface) {
+                $this->use_statements[] = $interface;
+                $interface = $true_class;
+            }
+            $this->interfaces[] = $interface;
+        }
         return $this;
     }
 
@@ -64,7 +85,7 @@ class Classy implements Contracts\Usable, Contracts\Renderable
 
     public function getUseStatements()
     {
-        $ret = [];
+        $ret = $this->use_statements;
         foreach ($this->functions as $func) {
             $ret = array_merge($ret,  $func->getUseStatements());
         }

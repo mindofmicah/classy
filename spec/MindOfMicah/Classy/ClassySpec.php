@@ -49,7 +49,7 @@ class ClassySpec extends ObjectBehavior
     public function it_should_format_functions_within_a_class(Funky $funky)
     {
         $funky->indent(1)->willReturn($funky)->shouldBeCalled();
-        $funky->render()->willReturn('function output')->shouldBeCalled();
+        $funky->render()->willReturn('    function output')->shouldBeCalled();
 
         $this->addFunction($funky)->render()->shouldRender('class.methods');
     }
@@ -66,12 +66,30 @@ class ClassySpec extends ObjectBehavior
         ]);
     }
 
+    public function it_should_gather_use_statements_from_superclasses_and_interfaces()
+    {
+        $this->willExtend('Namespace\BaseClass');
+        $this->willImplement('Namespace\Interface1');
+        $this->getUseStatements()->shouldBe([
+            'Namespace\BaseClass',
+            'Namespace\Interface1',
+        ]);
+        $this->render()->shouldRender('class.namespaced.headers');
+    }
+
+
     public function getMatchers()
     {
         $expecteds = require 'expectations/classy.php'; 
         return [
             'render' => function ($subject, $key) use ($expecteds) {
-                return array_key_exists($key, $expecteds) && $subject = $expecteds[$key];
+
+                if(array_key_exists($key, $expecteds) && $subject == $expecteds[$key])
+                    return true;
+                 
+                var_dump($expecteds[$key]);
+                var_dump($subject);
+                return false;
             }
         ];
     }
