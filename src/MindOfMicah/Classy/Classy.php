@@ -78,7 +78,7 @@ class Classy implements Contracts\Usable, Contracts\Renderable
         return $this;
     }
 
-    public function make($class_name)
+    public static function make($class_name)
     {
         return new static($class_name);
     }

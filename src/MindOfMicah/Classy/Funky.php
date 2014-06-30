@@ -155,7 +155,7 @@ class Funky implements Contracts\Usable, Contracts\Renderable
         return $this;
     }
 
-    public function make($function_name)
+    public static function make($function_name)
     {
         return new self($function_name);
     }

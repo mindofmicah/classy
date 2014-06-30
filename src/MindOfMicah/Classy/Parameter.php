@@ -12,7 +12,7 @@ class Parameter implements Contracts\Renderable
         $this->name = $parameter_name;    
     }
 
-    public function fromDefinition($definition)
+    public static function fromDefinition($definition)
     {
         if (preg_match('/(?:(?P<namespace>[\S]+)\s+)?(?P<name>\$[\S]+?)(?:\s*=\s*(?P<default>.+))?$/', $definition, $match)) {
             
