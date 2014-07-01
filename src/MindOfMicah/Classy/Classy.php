@@ -36,6 +36,9 @@ class Classy implements Contracts\Usable, Contracts\Renderable
     {
         $true_class = $this->grabTrueClassName($parent_class);
         if ($true_class != $parent_class) {
+            if ($parent_class[0] == '\\') {
+                $parent_class = substr($parent_class, 1);
+            }
             $this->use_statements[] = $parent_class;
             $parent_class = $true_class;
         }
@@ -55,6 +58,9 @@ class Classy implements Contracts\Usable, Contracts\Renderable
         foreach (func_get_args() as $interface) {
             $true_class = $this->grabTrueClassName($interface);
             if ($true_class != $interface) {
+                if ($interface[0] == '\\') {
+                    $interface = substr($interface, 1);
+                }
                 $this->use_statements[] = $interface;
                 $interface = $true_class;
             }
