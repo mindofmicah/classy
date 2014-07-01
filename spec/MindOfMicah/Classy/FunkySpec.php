@@ -134,8 +134,8 @@ class FunkySpec extends ObjectBehavior
         $this->param('\MindOfMicah\Apples $apple2');
         $this->param('\MindOfMicah\Tacos $taco');
         $this->getUseStatements()->shouldBe([
-            '\MindOfMicah\Apples',
-            '\MindOfMicah\Tacos'
+            'MindOfMicah\Apples',
+            'MindOfMicah\Tacos'
         ]);
     }
 

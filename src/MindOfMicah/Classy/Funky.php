@@ -165,6 +165,9 @@ class Funky implements Contracts\Usable, Contracts\Renderable
         $ret = [];
         foreach ($this->params as $param) {
             if ($temp = $param->getType()) {
+                if ($temp[0] == '\\') {
+                    $temp = substr($temp, 1);
+                }
                 $ret[$temp] = null;
             }
         }
