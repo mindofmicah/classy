@@ -23,6 +23,7 @@ $expected['class.methods'] = <<<CODE
 class Name
 {
     function output
+    function output
 }
 CODE;
 
