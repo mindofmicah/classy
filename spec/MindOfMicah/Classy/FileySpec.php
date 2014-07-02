@@ -37,12 +37,12 @@ class FileySpec extends ObjectBehavior
 
     public function it_should_grab_use_statements_whenever_content_is_added(\MindOfMicah\Classy\Funky $e)
     {
-        $e->render()->willReturn('')->shouldBeCalled();
+        $e->render()->willReturn('content')->shouldBeCalled();
         $e->getUseStatements()->willReturn(['Apples', 'MindOfMicah\Nachos'])->shouldBeCalled();
         $this->append($e)->shouldBe($this);;
         $this->addUseStatement('MindOfMicah\Tacos');
         $this->addUseStatement('MindOfMicah\Nachos');
-        $this->render()->shouldRender('file.has.manyuses');
+        $this->render()->shouldRender('file.has.manyuses.and.content');
     }
 
     public function it_should_be_able_to_have_use_statements()
@@ -58,7 +58,9 @@ class FileySpec extends ObjectBehavior
         $expects = require 'expectations/filey.php';
         return [
             'render' => function ($subject, $key) use ($expects) {
-                return (array_key_exists($key, $expects) && $expects[$key] == $subject);
+                if (array_key_exists($key, $expects) && $expects[$key] == $subject) return true;
+                var_dump($subject);
+                var_dump($expects[$key]);
             }
         ];
     }
