@@ -21,6 +21,10 @@ class Filey implements Contracts\Renderable
         foreach (array_unique($this->uses) as $use) {
             $ret.="\nuse {$use};";
         }
+
+        if ($this->contents != '') {
+            $ret.="\n";
+        }
         return $ret;
     }
 
