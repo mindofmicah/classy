@@ -26,11 +26,13 @@ $expected['file.with.render'] = <<<CODE
 stuff
 CODE;
 
-$expected['file.has.manyuses'] = <<<CODE
+$expected['file.has.manyuses.and.content'] = <<<CODE
 <?php
 use Apples;
 use MindOfMicah\Nachos;
 use MindOfMicah\Tacos;
+
+content
 CODE;
 
 return $expected;
