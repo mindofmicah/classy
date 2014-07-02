@@ -73,7 +73,7 @@ $expected['params.commented'] = <<<CODE
  *
  * @return
  */
-public function name(\Models\Model \$a, \$b)
+public function name(Model \$a, \$b)
 {
 }
 CODE;
