@@ -126,13 +126,14 @@ class FunkySpec extends ObjectBehavior
             ->shouldRender('indented');
     }
 
-    public function it_can_return_all_types_for_a_function()
+    public function it_can_return_all_valid_types_for_a_function()
     {
         $this->getUseStatements()->shouldHaveCount(0);
         $this->param('\MindOfMicah\Apples $apple1');
         $this->param('$other_param');
         $this->param('\MindOfMicah\Apples $apple2');
         $this->param('\MindOfMicah\Tacos $taco');
+        $this->param('array $ary');
         $this->getUseStatements()->shouldBe([
             'MindOfMicah\Apples',
             'MindOfMicah\Tacos'
