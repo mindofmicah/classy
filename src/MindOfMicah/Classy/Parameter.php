@@ -82,11 +82,25 @@ return;
     {
         return sprintf(
             '%s%s%s', 
-            $this->type ? $this->type . ' ' : '', 
+            $this->formatType(), 
             $this->name,
             $this->default ? ' = ' . $this->default : ''
         );
     }
+
+    private function formatType()
+    {
+        if (!$this->type) {
+            return '';
+        }
+
+        if (preg_match('/[^\\\]+$/', $this->type, $match)) {
+           return $match[0] . ' '; 
+        }
+
+        return $this->type . ' ';
+    }
+
     public function __toString()
     {
         return $this->render();

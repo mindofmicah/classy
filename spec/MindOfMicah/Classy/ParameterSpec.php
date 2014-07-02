@@ -69,7 +69,7 @@ class ParameterSpec extends ObjectBehavior
     {
         $this->render()->shouldBe('$t');
         $this->setDefault('array()')->render()->shouldBe('$t = array()');
-        $this->setType('Apples')->render()->shouldBe('Apples $t = array()');
+        $this->setType('\MindOfMicah\Apples')->render()->shouldBe('Apples $t = array()');
     }
 
     public function it_should_automagically_flatten_when_used_as_a_string()
