@@ -51,7 +51,7 @@ class ClassySpec extends ObjectBehavior
         $funky->indent(1)->willReturn($funky)->shouldBeCalled();
         $funky->render()->willReturn('    function output')->shouldBeCalled();
 
-        $this->addFunction($funky)->render()->shouldRender('class.methods');
+        $this->addFunction($funky)->addFunction($funky)->render()->shouldRender('class.methods');
     }
 
     public function it_should_gather_use_statements_from_its_methods(Funky $funky, Funky $f2)

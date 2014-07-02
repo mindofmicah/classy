@@ -27,9 +27,9 @@ class Classy implements Contracts\Usable, Contracts\Renderable
 
         $ret = '';
         foreach ($this->functions as $function) {
-            $ret .= $function->indent(1)->render();
+            $ret .= "\n" . $function->indent(1)->render();
         }
-        return "\n" . $ret;
+        return $ret;
     }
 
     public function willExtend($parent_class)
