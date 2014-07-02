@@ -68,8 +68,8 @@ class ClassySpec extends ObjectBehavior
 
     public function it_should_gather_use_statements_from_superclasses_and_interfaces()
     {
-        $this->willExtend('Namespace\BaseClass');
-        $this->willImplement('Namespace\Interface1');
+        $this->willExtend('\Namespace\BaseClass');
+        $this->willImplement('\Namespace\Interface1');
         $this->getUseStatements()->shouldBe([
             'Namespace\BaseClass',
             'Namespace\Interface1',
