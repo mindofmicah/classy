@@ -89,5 +89,15 @@ $expected['indented'] = <<<CODE
     }
 CODE;
 
+$expected['has.logic'] = <<<CODE
+public function name()
+{
+    try {
+        method();
+    } catch (Exception \$e) {
+        return null;
+    }
+}
+CODE;
 return $expected;
 

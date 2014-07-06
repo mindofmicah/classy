@@ -65,8 +65,18 @@ class Funky implements Contracts\Usable, Contracts\Renderable
 
     public function line($line)
     {
-        $this->lines[] = $this->forceSemiColon($line);
+        
+        $this->lines[] = $this->formatCode(trim($line));
         return $this;
+    }
+
+    private function formatCode($line_of_code)
+    {
+        $l = strlen($line_of_code);
+        if ($line_of_code[$l - 1] != '{' && $line_of_code[0] != '}') {
+            return $this->forceSemiColon($line_of_code);
+        }
+        return $line_of_code;
     }
 
     private function formatLines()
@@ -79,7 +89,24 @@ class Funky implements Contracts\Usable, Contracts\Renderable
             return '';
         }
 
-        return "    " . implode("\n    ", $this->lines) . "\n";
+        $ret = "    ";
+        $spaces = 4;
+        foreach ($this->lines as $index => $line) {
+            $line = trim($line);
+            if ($line[0] == '}') {
+                $spaces-=4;
+            } 
+            if ($index > 0) {
+                $ret.= "\n" . str_repeat(' ', $spaces);
+            }
+
+            if ($line[strlen($line) - 1] == '{') {
+                $spaces+=4;
+            }
+            $ret.=$line;
+        }
+        $ret.= "\n";
+        return $ret;
     }
 
     private function getlastLine()

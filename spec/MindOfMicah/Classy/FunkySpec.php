@@ -140,13 +140,24 @@ class FunkySpec extends ObjectBehavior
         ]);
     }
 
+    public function it_should_format_basic_logic_correctly()
+    {
+        $this->line('try {');
+        $this->line('method()');
+        $this->line('} catch (Exception $e) {');
+        $this->line('return null');
+        $this->line('}');
+        $this->render()->shouldRender('has.logic');
+    }
 
     public function getMatchers()
     {
         $expects = require 'expectations/funky.php';
         return [
             'render' => function ($subject, $key) use ($expects) {
-                return (array_key_exists($key, $expects) && $expects[$key] == $subject);
+                if (array_key_exists($key, $expects) && $expects[$key] == $subject) return true;
+                var_dump($subject);
+                var_dump($expects[$key]);
             }
         ];
     }
