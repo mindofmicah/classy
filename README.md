@@ -1,5 +1,6 @@
 classy
 ======
+[![Build Status](https://travis-ci.org/mindofmicah/classy.svg?branch=master)](https://travis-ci.org/mindofmicah/classy)
 
 As strange as it may sound Classy abstracts writing php functions into a chainable object-oriented syntax.
 
