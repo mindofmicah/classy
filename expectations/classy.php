@@ -33,4 +33,12 @@ class Name extends BaseClass implements Interface1
 }
 CODE;
 
+$expected['class.properties'] = <<<CODE
+class Name
+{
+    property_output
+    property_output
+}
+CODE;
+
 return $expected;
