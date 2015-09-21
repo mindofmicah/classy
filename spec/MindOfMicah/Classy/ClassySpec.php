@@ -5,6 +5,7 @@ namespace spec\MindOfMicah\Classy;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use MindOfMicah\Classy\Funky;
+use MindOfMicah\Classy\Property;
 class ClassySpec extends ObjectBehavior
 {
     public function let()
@@ -77,6 +78,19 @@ class ClassySpec extends ObjectBehavior
         $this->render()->shouldRender('class.namespaced.headers');
     }
 
+    public function it_should_print_out_properties(Property $property1, Property $property2)
+    {
+        $property1->indent(1)->willReturn($property1)->shouldBeCalled();
+        $property1->render()->willReturn('    property_output')->shouldBeCalled();
+
+        $property2->indent(1)->willReturn($property2)->shouldBeCalled();
+        $property2->render()->willReturn('    property_output')->shouldBeCalled();
+
+        $this->addProperty($property1);
+        $this->addProperty($property2);
+
+        $this->render()->shouldRender('class.properties');
+    }
 
     public function getMatchers()
     {

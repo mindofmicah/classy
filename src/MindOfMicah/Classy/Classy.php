@@ -7,6 +7,7 @@ class Classy implements Contracts\Usable, Contracts\Renderable
     protected $parent_class;
     protected $interfaces = [];
     protected $functions = [];
+    protected $properties = [];
     protected $use_statements = [];
 
     public function __construct($name)
@@ -16,9 +17,22 @@ class Classy implements Contracts\Usable, Contracts\Renderable
 
     public function render()
     {
-        return "class {$this->name}".($this->parent_class ?' extends '.$this->parent_class :'').$this->formatInterfaces()."\n{".$this->formatFunctions()."\n}";
+        return "class {$this->name}".($this->parent_class ?' extends '.$this->parent_class :'').$this->formatInterfaces()."\n{".$this->formatProperties() . $this->formatFunctions()."\n}";
     }
 
+    private function formatProperties()
+    {
+        if (!count($this->properties)) {
+            return '';
+        }
+
+        $ret = '';
+        foreach ($this->properties as $function) {
+            $ret .= "\n" . $function->indent(1)->render();
+        }
+        return $ret;
+       
+    }
     private function formatFunctions()
     {
         if (!count($this->functions)) {
@@ -96,5 +110,11 @@ class Classy implements Contracts\Usable, Contracts\Renderable
             $ret = array_merge($ret,  $func->getUseStatements());
         }
         return array_values(array_unique($ret));
+    }
+
+    public function addProperty($argument1)
+    {
+        $this->properties[] = $argument1;
+        return $this;
     }
 }
